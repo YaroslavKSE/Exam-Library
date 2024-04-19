@@ -4,7 +4,6 @@ public class Journal : LibraryItem
 {
     private string Country { get; set; }
     private DateTime IssueDate { get; set; }
-    public bool IsAvailable { get; private set; }
     
     public Journal(string title, string country, DateTime issueDate) : base(title)
     {
@@ -12,17 +11,20 @@ public class Journal : LibraryItem
         IssueDate = issueDate;
         IsAvailable = true;
     }
-    public void Take(Guid userId)
-    {
-        if (!IsAvailable)
-            throw new InvalidOperationException("This journal is not available.");
-        
-        IsAvailable = false;
-    }
 
     public void Return(Guid userId)
     {
         IsAvailable = true;
     }
-    
+
+    public override bool BorrowItem()
+    {
+        if (!IsAvailable)
+        {
+            return false;
+        }
+
+        IsAvailable = false;
+        return true;
+    }
 }

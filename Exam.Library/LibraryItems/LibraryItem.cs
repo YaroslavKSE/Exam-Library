@@ -8,4 +8,7 @@ public abstract class LibraryItem
     }
 
     public string Title { get; private set; }
+    public bool IsAvailable { get; protected set; }
+
+    public abstract bool BorrowItem();
 }

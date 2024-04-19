@@ -1,14 +1,12 @@
 namespace Exam.Library.LibraryItems;
 
-public class Book : LibraryItem, IBookBorrower
+public class Book : LibraryItem
 {
     private string Author { get; set; }
     
     private int IsbnId { get; set; }
 
     private DateTime PrintYear { get; set; }
-    
-    public bool IsAvailable { get; private set; }
     
     private int Copies { get; set; }
     
@@ -28,22 +26,18 @@ public class Book : LibraryItem, IBookBorrower
         IsAvailable = true;
     }
 
-    public Task<bool> BorrowBook(Reader reader, Book book)
+    public override bool BorrowItem()
     {
         if (!IsAvailable)
         {
-            throw new InvalidOperationException("All copies of this book are borrowed.");
+            return false;
         }
 
-        if (reader.CanIncreaseBorrowAmount())
-        {
-            Copies--;
-            IsAvailable = Copies > 0;
-            ReturningDeadline = DateTime.Now.AddDays(14);
-            return Task.FromResult(true);
-        }
+        Copies--;
+        IsAvailable = Copies > 0;
+        ReturningDeadline = DateTime.Now.AddDays(14);
+        return true;
 
-        return Task.FromResult(false);
         
     }
 }

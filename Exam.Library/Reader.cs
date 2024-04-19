@@ -2,8 +2,8 @@ namespace Exam.Library;
 
 public abstract class Reader
 {
-    private Guid ReaderId { get; set; }
-    protected int CurrentBorrowAmount { get; private set; }
+    public Guid ReaderId { get; private set; }
+    private int CurrentBorrowAmount { get; set; }
     protected int MaxBorrowAmount;
 
     protected Reader()

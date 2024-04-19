@@ -1,4 +1,4 @@
-namespace Exam.Library;
+namespace Exam.Library.Interfaces;
 
 public interface IReaderNotifier
 {
